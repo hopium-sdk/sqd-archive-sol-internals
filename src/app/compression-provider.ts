@@ -84,9 +84,34 @@ export class CompressionProvider {
         return decoded as PackedBlockList;
     }
 
+    public async fileBufferToBlockList({ fileBuffer }: { fileBuffer: Uint8Array }): Promise<PackedBlockList> {
+        const msgpackBuffer = await this.decompressXzBufferToBuffer({ fileBuffer });
+        const decoded = replaceStringWithBigInt(decode(msgpackBuffer));
+
+        return decoded as PackedBlockList;
+    }
+
     private async decompressXzToBuffer({ filePath }: { filePath: string }): Promise<Uint8Array> {
         return new Promise((resolve, reject) => {
             const proc = spawn("xz", ["-d", "-c", filePath]);
+            const chunks: Buffer[] = [];
+            proc.stdout.on("data", (chunk) => chunks.push(chunk));
+            proc.stderr.on("data", (err) => console.error("stderr:", err.toString()));
+            proc.on("error", reject);
+            proc.on("close", (code) => {
+                if (code === 0) {
+                    resolve(Buffer.concat(chunks));
+                } else {
+                    reject(new Error(`xz exited with code ${code}`));
+                }
+            });
+        });
+    }
+
+    private async decompressXzBufferToBuffer({ fileBuffer }: { fileBuffer: Uint8Array }): Promise<Uint8Array> {
+        return new Promise((resolve, reject) => {
+            const proc = spawn("xz", ["-d", "-c"]);
+            proc.stdin.end(fileBuffer);
             const chunks: Buffer[] = [];
             proc.stdout.on("data", (chunk) => chunks.push(chunk));
             proc.stderr.on("data", (err) => console.error("stderr:", err.toString()));

@@ -4,6 +4,8 @@ import { readdir } from "fs/promises";
 import path from "path";
 import { Logger } from "@hopium-sdk/logger";
 import type { CompressionProvider } from "./compression-provider";
+import { type Block as SqdBlock } from "@subsquid/solana-normalization";
+import { BlocklistConverter } from "./blocklist-converter";
 
 type T_S3_PROVIDER = {
     client: S3Client;
@@ -16,9 +18,11 @@ export class S3Provider {
     private readonly S3_DIR: string = "archive/sol";
     private readonly S3_FILES_PATH: string = `${this.S3_DIR}/files`;
     private readonly S3_STATUS_PATH: string = `${this.S3_DIR}/status.xz`;
+    private readonly blocklistConverter: BlocklistConverter;
 
     constructor(private readonly opts: T_S3_PROVIDER) {
         this.s3 = opts.client;
+        this.blocklistConverter = new BlocklistConverter();
     }
 
     public async getStatus(): Promise<T_STATUS> {
@@ -70,6 +74,13 @@ export class S3Provider {
 
         await this.updateStatus({ status: updatedStatus });
         await this.opts.compressionProvider.cleanTempDir();
+    }
+
+    public async getBlocks({ fileIndex }: { fileIndex: number }): Promise<SqdBlock[]> {
+        const file = this.s3.file(`${this.S3_FILES_PATH}/${fileIndex}.xz`);
+        const buffer = await file.arrayBuffer();
+        const packedBlockList = await this.opts.compressionProvider.fileBufferToBlockList({ fileBuffer: new Uint8Array(buffer) });
+        return this.blocklistConverter.toBlocks({ packedBlockList });
     }
 
     public async cleanS3(): Promise<void> {

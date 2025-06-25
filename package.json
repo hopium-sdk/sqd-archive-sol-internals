@@ -1,5 +1,6 @@
 {
   "name": "@hopium-sdk/sqd-archive-sol-internals",
+  "version": "0.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {
@@ -10,7 +11,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rm -rf dist && npx tsc"
+    "build": "rm -rf dist && npx tsc",
+    "pack": "npm run build && npm pack --pack-destination ./archive/"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -21,6 +23,8 @@
   "dependencies": {
     "@hopium-sdk/logger": "^0.0.4",
     "@msgpack/msgpack": "^3.1.2",
+    "@subsquid/solana-normalization": "^0.0.6",
+    "bs58": "^6.0.0",
     "zod": "^3.25.67"
   }
 }

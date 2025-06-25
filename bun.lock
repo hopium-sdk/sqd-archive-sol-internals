@@ -6,6 +6,8 @@
       "dependencies": {
         "@hopium-sdk/logger": "^0.0.4",
         "@msgpack/msgpack": "^3.1.2",
+        "@subsquid/solana-normalization": "^0.0.6",
+        "bs58": "^6.0.0",
         "zod": "^3.25.67",
       },
       "devDependencies": {
@@ -21,9 +23,21 @@
 
     "@msgpack/msgpack": ["@msgpack/msgpack@3.1.2", "", {}, "sha512-JEW4DEtBzfe8HvUYecLU9e6+XJnKDlUAIve8FvPzF3Kzs6Xo/KuZkZJsDH0wJXl/qEZbeeE7edxDNY3kMs39hQ=="],
 
+    "@subsquid/solana-normalization": ["@subsquid/solana-normalization@0.0.6", "", { "dependencies": { "@subsquid/solana-rpc-data": "^0.1.0", "@subsquid/util-internal": "^3.2.0", "@subsquid/util-internal-validation": "^0.7.0" } }, "sha512-x7iOOGf/sufONCebT06ZQds5z5NEQSTE/ns+74Jbji9nRPC0ws+e53Fb6wuoYmzzSEX14lXTkPLVvFJHDONR2Q=="],
+
+    "@subsquid/solana-rpc-data": ["@subsquid/solana-rpc-data@0.1.0", "", { "peerDependencies": { "@subsquid/util-internal-validation": "^0.7.0" } }, "sha512-2kjHfG5lbnOCe1FHrOKYmcey2JAqhUgY3ecX0OT6hC90dO8bGSz+Fskc20A0YgqXqiAyJqrqnqSxmuN1qcK+Lw=="],
+
+    "@subsquid/util-internal": ["@subsquid/util-internal@3.2.0", "", {}, "sha512-foNCjOmZaP8MKMa9sNe2GXTjFSDM9UqA0I0C0/ZvCxM1lCmG3mxZb70f8Wyi7TePXC/eV8eARbIqFyz0GjQmzA=="],
+
+    "@subsquid/util-internal-validation": ["@subsquid/util-internal-validation@0.7.0", "", { "peerDependencies": { "@subsquid/logger": "^1.3.3" }, "optionalPeers": ["@subsquid/logger"] }, "sha512-Y8o7am+btlHxJuPtS/0+qNe+QkyAOuxSSXhccRwj2mRUlYG81MnxWFgYs4ac+pWeayLfU/3SBvQJH5g7L82fTQ=="],
+
     "@types/bun": ["@types/bun@1.2.17", "", { "dependencies": { "bun-types": "1.2.17" } }, "sha512-l/BYs/JYt+cXA/0+wUhulYJB6a6p//GTPiJ7nV+QHa8iiId4HZmnu/3J/SowP5g0rTiERY2kfGKXEK5Ehltx4Q=="],
 
     "@types/node": ["@types/node@24.0.3", "", { "dependencies": { "undici-types": "~7.8.0" } }, "sha512-R4I/kzCYAdRLzfiCabn9hxWfbuHS573x+r0dJMkkzThEa7pbrcDWK+9zu3e7aBOouf+rQAciqPFMnxwr0aWgKg=="],
+
+    "base-x": ["base-x@5.0.1", "", {}, "sha512-M7uio8Zt++eg3jPj+rHMfCC+IuygQHHCOU+IYsVtik6FWjuYpVt/+MRKcgsAMHh8mMFAwnB+Bs+mTrFiXjMzKg=="],
+
+    "bs58": ["bs58@6.0.0", "", { "dependencies": { "base-x": "^5.0.0" } }, "sha512-PD0wEnEYg6ijszw/u8s+iI3H17cTymlrwkKhDhPZq+Sokl3AU4htyBFTjAeNAlCCmg0f53g6ih3jATyCKftTfw=="],
 
     "bun-types": ["bun-types@1.2.17", "", { "dependencies": { "@types/node": "*" } }, "sha512-ElC7ItwT3SCQwYZDYoAH+q6KT4Fxjl8DtZ6qDulUFBmXA8YB4xo+l54J9ZJN+k2pphfn9vk7kfubeSd5QfTVJQ=="],
 
