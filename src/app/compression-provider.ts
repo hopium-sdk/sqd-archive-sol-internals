@@ -15,7 +15,7 @@ export class CompressionProvider {
     public readonly fileExtension: string = ".xz";
 
     constructor(private readonly opts: T_COMPRESSION_PROVIDER) {
-        this.TEMP_DIR = opts.tempDir ?? path.join(process.cwd(), "src/.temp/packed/");
+        this.TEMP_DIR = opts.tempDir ?? path.join(process.cwd(), ".temp/packed/");
 
         if (!existsSync(this.TEMP_DIR)) {
             mkdirSync(this.TEMP_DIR, { recursive: true });
